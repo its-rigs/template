@@ -1,0 +1,23 @@
+containers:
+  jekyll-env:
+    image: jekyll/jekyll:4
+    volumes:
+      - local: .
+        container: /code
+    ports:
+      - local: 4000
+        container: 4000
+    working_directory: /code
+
+tasks:
+  shell:
+    description: Shell to access Jekyll command line
+    run:
+      container: jekyll-env
+      command: bash
+
+  serve:
+    description: Serve application and watch for changes
+    run:
+      container: jekyll-env
+      command: jekyll serve --watch --force_polling --host 0.0.0.0
